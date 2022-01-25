@@ -99,36 +99,53 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Модальное окно
 
-  const modalBtn = document.querySelector('[data-modal]'),
+  const modalBtn = document.querySelectorAll('[data-modal]'),
     modalClose = document.querySelector('[data-close]'),
     modal = document.querySelector('.modal');
 
-  modalBtn.addEventListener('click', () => {
+  function openModal() {
     modal.classList.add('show');
     modal.classList.remove('hide');
     document.body.style.overflow = 'hidden';
+    clearTimeout(modalTimerId);
+  }
+
+  modalBtn.forEach(item => {
+    item.addEventListener('click', openModal);
   });
 
-  modalClose.addEventListener('click', closeModal);
-
-  modal.addEventListener('click', (e) => {
-    console.log(e);
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    console.log(e);
-    if (e.code === 'Escape' && modal.classList.contains('show')) {
-      closeModal();
-    }
-  });
-
-  function closeModal() {
+  function closeModalWindow() {
     modal.classList.add('hide');
     modal.classList.remove('show');
     document.body.style.overflow = '';
   }
+
+
+  modalClose.addEventListener('click', closeModalWindow);
+
+  modal.addEventListener('click', (e) => {
+    // console.log(e);
+    if (e.target === modal) {
+      closeModalWindow();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Escape' && modal.classList.contains('show')) {
+      closeModalWindow();
+    }
+  });
+
+  const modalTimerId = setTimeout(openModal, 7000);
+
+  function openModalByScroll() {
+    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+      openModal();
+      window.removeEventListener('scroll', scrollOpenModal);
+    }
+
+  }
+
+  window.addEventListener('scroll', openModalByScroll);
 
 });
