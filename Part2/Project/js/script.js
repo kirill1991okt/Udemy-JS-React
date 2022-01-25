@@ -93,11 +93,42 @@ window.addEventListener('DOMContentLoaded', () => {
         clearInterval(timerID);
       }
     }
-
-
   }
 
-
   setTimerOnPage('.timer', deadline);
+
+  // Модальное окно
+
+  const modalBtn = document.querySelector('[data-modal]'),
+    modalClose = document.querySelector('[data-close]'),
+    modal = document.querySelector('.modal');
+
+  modalBtn.addEventListener('click', () => {
+    modal.classList.add('show');
+    modal.classList.remove('hide');
+    document.body.style.overflow = 'hidden';
+  });
+
+  modalClose.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    console.log(e);
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    console.log(e);
+    if (e.code === 'Escape' && modal.classList.contains('show')) {
+      closeModal();
+    }
+  });
+
+  function closeModal() {
+    modal.classList.add('hide');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
 
 });
