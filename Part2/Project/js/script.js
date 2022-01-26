@@ -141,7 +141,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function openModalByScroll() {
     if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
       openModal();
-      window.removeEventListener('scroll', scrollOpenModal);
+      window.removeEventListener('scroll', openModalByScroll);
     }
 
   }
