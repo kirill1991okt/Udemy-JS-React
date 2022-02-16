@@ -177,7 +177,6 @@ window.addEventListener('DOMContentLoaded', () => {
       } else {
         this.classes.forEach(classNames => div.classList.add(classNames));
       }
-
       div.innerHTML = ` 
           <img src=${this.src} alt=${this.alt} />
           <h3 class="menu__item-subtitle">${this.title}</h3>
@@ -190,7 +189,6 @@ window.addEventListener('DOMContentLoaded', () => {
             <div class="menu__item-total"><span>${this.changeToBYN()}</span> руб/день</div>
           </div>
       `;
-
       this.parenElement.append(div);
     }
   }
